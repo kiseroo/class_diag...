@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Diagram - Online Ambulance Ordering System</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional styles specific to class diagram */
+        .class-diagram {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 50px; /* Increased from 30px to 50px for more spacing between classes */
+            margin-bottom: 60px;
+            position: relative;
+            padding: 20px;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto 60px;
+        }
+        
+        .class-box {
+            width: 240px; /* Reduced from 280px to 240px to make boxes smaller */
+            border: 2px solid #1890ff;
+            border-radius: 8px;
+            background-color: #f0f7ff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s;
+            position: relative;
+            z-index: 5;
+            margin: 10px;
+        }
+        
+        .class-box:hover {
+            transform: translateY(-5px);
+            z-index: 10;
+        }
+        
+        .class-name {
+            background-color: #1890ff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 7px 7px 0 0;
+        }
+        
+        .class-attributes, .class-methods {
+            padding: 15px 20px;
+            border-top: 2px solid #1890ff;
+        }
+        
+        .class-attributes h4, .class-methods h4 {
+            margin-bottom: 12px;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .attribute, .method {
+            margin-bottom: 8px;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+        
+        .relationship-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .relationship-line {
+            position: absolute;
+            height: 5px; /* Increased from 4px to 5px for better visibility */
+            transform-origin: 0 0;
+            z-index: 1;
+        }
+        
+        .relationship-label {
+            position: absolute;
+            background-color: white;
+            padding: 5px 10px;
+            font-size: 14px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            z-index: 2;
+            font-weight: bold;
+        }
+        
+        .inheritance-line {
+            background-color: #FF5733; /* Orange-red for inheritance */
+        }
+        
+        .association-line {
+            background-color: #33A1FF; /* Blue for association */
+        }
+        
+        .aggregation-line {
+            background-color: #33FF57; /* Green for aggregation */
+        }
+        
+        .composition-line {
+            background-color: #A633FF; /* Purple for composition */
+        }
+        
+        .inheritance-arrow {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 18px solid #FF5733;
+            position: absolute;
+            transform: rotate(90deg);
+        }
+        
+        .aggregation-diamond {
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            border: 3px solid #33FF57;
+            transform: rotate(45deg);
+            position: absolute;
+        }
+        
+        .composition-diamond {
+            width: 16px;
+            height: 16px;
+            background-color: #A633FF;
+            transform: rotate(45deg);
+            position: absolute;
+        }
+        
+        .association-arrow {
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 16px solid #33A1FF;
+            position: absolute;
+            transform: rotate(90deg);
+        }
+        
+        .multiplicity {
+            position: absolute;
+            background-color: white;
+            padding: 4px 8px;
+            font-size: 14px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            z-index: 2;
+            font-weight: bold;
+        }
+        
+        /* Legend styles */
+        .legend {
+            margin: 30px auto;
+            padding: 20px;
+            border: 2px solid #1890ff;
+            border-radius: 8px;
+            background-color: #f0f7ff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+        }
+        
+        .legend h3 {
+            color: #1890ff;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 5px 10px;
+            background-color: white;
+            border-radius: 5px;
+        }
+        
+        .legend-symbol {
+            margin-right: 20px;
+            position: relative;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+        }
+        
+        .legend-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        /* Navigation */
+        .navigation {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .navigation a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #1890ff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 0 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .navigation a:hover {
+            background-color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <a href="index.html">Use Case Diagram</a>
+            <a href="class-diagram.html">Class Diagram</a>
+            <a href="component-diagram.html">Component Diagram</a>
+        </div>
+        
+        <h1>Class Diagram: Online Ambulance Ordering System</h1>
+        
+        <div class="class-diagram">
+            <!-- User Class -->
+            <div class="class-box" id="user-class">
+                <div class="class-name">User</div>
+                <div class="class-attributes">
+                    <h4>Attributes</h4>
+                    <div class="attribute">- userId: String</div>
+                    <div class="attribute">- name: String</div>
+                    <div class="attribute">- email: String</div>
+                    <div class="attribute">- phoneNumber: String</div>
+                    <div class="attribute">- password: String</div>
+                </div>
+                <div class="class-methods">
+                    <h4>Methods</h4>
+                    <div class="method">+ register(): Boolean</div>
+                    <div class="method">+ login(): Boolean</div>
+                    <div class="method">+ updateProfile(): Boolean</div>
+                    <div class="method">+ resetPassword(): Boolean</div>
+                </div>
+            </div>
+            
+            <!-- Patient Class -->
+            <div class="class-box" id="patient-class">
+                <div class="class-name">Patient</div>
+                <div class="class-attributes">
+                    <h4>Attributes</h4>
+                    <div class="attribute">- medicalHistory: String</div>
+                    <div class="attribute">- emergencyContacts: List</div>
+                    <div class="attribute">- bloodType: String</div>
+                    <div class="attribute">- allergies: List</div>
+                </div>
+                <div class="class-methods">
+                    <h4>Methods</h4>
+                    <div class="method">+ requestAmbulance(): Request</div>
+                    <div class="method">+ trackAmbulance(): Location</div>
+                    <div class="method">+ shareMedicalInfo(): Boolean</div>
+                    <div class="method">+ cancelRequest(): Boolean</div>
+                    <div class="method">+ rateService(): Boolean</div>
+                    <div class="method">+ viewHistory(): List</div>
+                </div>
+            </div>
+            
+            <!-- EmergencyContact Class -->
+            <div class="class-box" id="emergency-contact-class">
+                <div class="class-name">EmergencyContact</div>
+                <div class="class-attributes">
+                    <h4>Attributes</h4>
+                    <div class="attribute">- contactId: String</div>
+                    <div class="attribute">- name: String</div>
+                    <div class="attribute">- phoneNumber: String</div>
+                    <div class="attribute">- relationship: String</div>
+                </div>
+                <div class="class-methods">
+                    <h4>Methods</h4>
+                    <div class="method">+ requestOnBehalf(): Request</div>
+                    <div class="method">+ trackAmbulance(): Location</div>
+                    <div class="method">+ receiveNotifications(): Boolean</div>
+                </div>
+            </div>
+            
+            <!-- AmbulanceDriver Class -->
+            <div class="class-box" id="driver-class">
+                <div class="class-name">AmbulanceDriver</div>
+                <div class="class-attributes">
+                    <h4>Attributes</h4>
+                    <div class="attribute">- driverId: String</div>
+                    <div class="attribute">- licenseNumber: String</div>
+                    <div class="attribute">- experience: Integer</div>
+                    <div class="attribute">- rating: Float</div>
+                    <div class="attribute">- availability: Boolean</div>
+                </div>
+                <div class="class-methods">
+                    <h4>Methods</h4>
+                    <div class="method">+ login(): Boolean</div>
+                    <div class="method">+ acceptRequest(): Boolean</div>
+                    <div class="method">+ declineRequest(): Boolean</div>
+                    <div class="method">+ updateAvailability(): Boolean</div>
+                    <div class="method">+ navigateToPatient(): Boolean</div>
+                    <div class="method">+ updateArrivalStatus(): Boolean</div>
+                    <div class="method">+ completeTrip(): Boolean</div>
+                </div>
+            </div>
+            
+            <!-- MedicalStaff Class -->
+            <div class="class-box" id="medical-staff-class">
+                <div class="class-name">MedicalStaff</div>
+                <div class="class-attributes">
+                    <h4>Attributes</h4>
+                    <div class="attribute">- staffId: String</div>
+                    <div class="attribute">- specialization: String</div>
+                    <div class="attribute">- hospital: String</div>
+                </div>
+                <div class="class-methods">
+                    <h4>Methods</h4>
+                    <div class="method">+ receivePatientInfo(): Boolean</div>
+                    <div class="method">+ updatePatientStatus(): Boolean</div>
+                    <div class="method">+ prepareForArrival(): Boolean</div>
+                </div>
+            </div>
+            
+            <!-- Administrator Class -->
+            <div class="class-box" id="admin-class">
+                <div class="class-name">Administrator</div>
+                <div class="class-attributes">
+                    <h4>Attributes</h4>
+                    <div class="attribute">- adminId: String</div>
+                    <div class="attribute">- accessLevel: Integer</div>
+                </div>
+                <div class="class-methods">
+                    <h4>Methods</h4>
+                    <div class="method">+ manageAccounts(): Boolean</div>
+                    <div class="method">+ monitorSystem(): Boolean</div>
+                    <div class="method">+ generateReports(): Report</div>
+                    <div class="method">+ manageFleet(): Boolean</div>
+                    <div class="method">+ handleDisputes(): Boolean</div>
+                </div>
+            </div>
+            
+            <!-- Ambulance Class -->
+            <div class="class-box" id="ambulance-class">
+                <div class="class-name">Ambulance</div>
+                <div class="class-attributes">
+                    <h4>Attributes</h4>
+                    <div class="attribute">- ambulanceId: String</div>
+                    <div class="attribute">- registrationNumber: String</div>
+                    <div class="attribute">- type: String</div>
+                    <div class="attribute">- equipment: List</div>
+                    <div class="attribute">- status: String</div>
+                    <div class="attribute">- currentLocation: Location</div>
+                </div>
+                <div class="class-methods">
+                    <h4>Methods</h4>
+                    <div class="method">+ updateStatus(): Boolean</div>
+                    <div class="method">+ updateLocation(): Boolean</div>
+                    <div class="method">+ assignDriver(): Boolean</div>
+                    <div class="method">+ calculateETA(): Integer</div>
+                </div>
+            </div>
+            
+            <!-- Request Class -->
+            <div class="class-box" id="request-class">
+                <div class="class-name">Request</div>
+                <div class="class-attributes">
+                    <h4>Attributes</h4>
+                    <div class="attribute">- requestId: String</div>
+                    <div class="attribute">- patientId: String</div>
+                    <div class="attribute">- pickupLocation: Location</div>
+                    <div class="attribute">- destination: Location</div>
+                    <div class="attribute">- requestTime: DateTime</div>
+                    <div class="attribute">- status: String</div>
+                    <div class="attribute">- emergencyLevel: Integer</div>
+                </div>
+                <div class="class-methods">
+                    <h4>Methods</h4>
+                    <div class="method">+ createRequest(): Boolean</div>
+                    <div class="method">+ updateStatus(): Boolean</div>
+                    <div class="method">+ cancelRequest(): Boolean</div>
+                    <div class="method">+ assignAmbulance(): Boolean</div>
+                    <div class="method">+ calculateCost(): Float</div>
+                </div>
+            </div>
+            
+            <!-- Payment Class -->
+            <div class="class-box" id="payment-class">
+                <div class="class-name">Payment</div>
+                <div class="class-attributes">
+                    <h4>Attributes</h4>
+                    <div class="attribute">- paymentId: String</div>
+                    <div class="attribute">- requestId: String</div>
+                    <div class="attribute">- amount: Float</div>
+                    <div class="attribute">- paymentMethod: String</div>
+                    <div class="attribute">- paymentStatus: String</div>
+                    <div class="attribute">- paymentTime: DateTime</div>
+                </div>
+                <div class="class-methods">
+                    <h4>Methods</h4>
+                    <div class="method">+ processPayment(): Boolean</div>
+                    <div class="method">+ generateReceipt(): Boolean</div>
+                    <div class="method">+ refundPayment(): Boolean</div>
+                    <div class="method">+ verifyPayment(): Boolean</div>
+                </div>
+            </div>
+            
+            <!-- Location Class -->
+            <div class="class-box" id="location-class">
+                <div class="class-name">Location</div>
+                <div class="class-attributes">
+                    <h4>Attributes</h4>
+                    <div class="attribute">- latitude: Float</div>
+                    <div class="attribute">- longitude: Float</div>
+                    <div class="attribute">- address: String</div>
+                    <div class="attribute">- landmark: String</div>
+                </div>
+                <div class="class-methods">
+                    <h4>Methods</h4>
+                    <div class="method">+ getCoordinates(): Coordinates</div>
+                    <div class="method">+ getAddress(): String</div>
+                    <div class="method">+ calculateDistance(Location): Float</div>
+                    <div class="method">+ updateLocation(): Boolean</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Legend -->
+        <div class="legend">
+            <h3>Relationship Legend</h3>
+            <div class="legend-item">
+                <div class="legend-symbol">
+                    <div style="width: 30px; height: 2px; background-color: #FF5733; position: relative; top: 15px;"></div>
+                    <div class="inheritance-arrow" style="position: relative; top: 0px; left: 30px; border-bottom-color: #FF5733;"></div>
+                </div>
+                <div class="legend-text">Inheritance: A "is-a" relationship (e.g., Patient is a User)</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol">
+                    <div style="width: 30px; height: 2px; background-color: #33A1FF; position: relative; top: 15px;"></div>
+                    <div class="association-arrow" style="position: relative; top: 0px; left: 30px; border-bottom-color: #33A1FF;"></div>
+                </div>
+                <div class="legend-text">Association: A "uses" relationship between classes</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol">
+                    <div style="width: 30px; height: 2px; background-color: #33FF57; position: relative; top: 15px;"></div>
+                    <div class="aggregation-diamond" style="position: relative; top: 9px; left: 30px; border-color: #33FF57;"></div>
+                </div>
+                <div class="legend-text">Aggregation: A "has-a" relationship where parts can exist independently</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol">
+                    <div style="width: 30px; height: 2px; background-color: #A633FF; position: relative; top: 15px;"></div>
+                    <div class="composition-diamond" style="position: relative; top: 9px; left: 30px; background-color: #A633FF;"></div>
+                </div>
+                <div class="legend-text">Composition: A "contains" relationship where parts cannot exist independently</div>
+            </div>
+        </div>
+        
+        <!-- Relationships will be drawn using JavaScript -->
+        <div class="relationship-container" id="relationships">
+            <!-- Relationships will be added here dynamically -->
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Organize classes in the grid for better relationship visualization
+            organizeClasses();
+            
+            // Draw inheritance relationships (Patient, EmergencyContact, AmbulanceDriver, MedicalStaff, Administrator inherit from User)
+            drawInheritance('patient-class', 'user-class');
+            drawInheritance('emergency-contact-class', 'user-class');
+            drawInheritance('driver-class', 'user-class');
+            drawInheritance('medical-staff-class', 'user-class');
+            drawInheritance('admin-class', 'user-class');
+            
+            // Draw association relationships
+            drawAssociation('patient-class', 'request-class', '1', '*', 'requests');
+            drawAssociation('driver-class', 'ambulance-class', '1', '1', 'drives');
+            drawAssociation('request-class', 'ambulance-class', '1', '1', 'assigned to');
+            drawAssociation('request-class', 'payment-class', '1', '1', 'has');
+            drawAssociation('request-class', 'location-class', '1', '2', 'has');
+            
+            // Draw aggregation relationships
+            drawAggregation('patient-class', 'emergency-contact-class', '1', '*', 'has');
+            
+            // Draw composition relationships
+            drawComposition('ambulance-class', 'location-class', '1', '1', 'tracks');
+        });
+        
+        // Function to organize classes in the grid based on their relationships
+        function organizeClasses() {
+            const diagram = document.querySelector('.class-diagram');
+            const classes = {
+                // User and its subclasses (inheritance relationship)
+                user: document.getElementById('user-class'),
+                patient: document.getElementById('patient-class'),
+                emergencyContact: document.getElementById('emergency-contact-class'),
+                driver: document.getElementById('driver-class'),
+                medicalStaff: document.getElementById('medical-staff-class'),
+                admin: document.getElementById('admin-class'),
+                
+                // Other related classes
+                ambulance: document.getElementById('ambulance-class'),
+                request: document.getElementById('request-class'),
+                payment: document.getElementById('payment-class'),
+                location: document.getElementById('location-class')
+            };
+            
+            // Clear existing layout
+            diagram.innerHTML = '';
+            
+            // Add classes in a more logical order based on relationships
+            // Row 1: User (parent) and Administrator
+            diagram.appendChild(classes.user);
+            diagram.appendChild(classes.admin);
+            diagram.appendChild(classes.medicalStaff);
+            diagram.appendChild(document.createElement('div')); // Empty space
+            
+            // Row 2: Patient, EmergencyContact, Driver
+            diagram.appendChild(classes.patient);
+            diagram.appendChild(classes.emergencyContact);
+            diagram.appendChild(classes.driver);
+            diagram.appendChild(classes.ambulance);
+            
+            // Row 3: Request and related classes
+            diagram.appendChild(document.createElement('div')); // Empty space
+            diagram.appendChild(classes.request);
+            diagram.appendChild(classes.payment);
+            diagram.appendChild(classes.location);
+        }
+        
+        function getElementPosition(element) {
+            const rect = element.getBoundingClientRect();
+            const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            return {
+                top: rect.top + scrollTop,
+                left: rect.left + scrollLeft,
+                width: rect.width,
+                height: rect.height,
+                centerX: rect.left + scrollLeft + rect.width / 2,
+                centerY: rect.top + scrollTop + rect.height / 2,
+                bottom: rect.top + scrollTop + rect.height,
+                right: rect.left + scrollLeft + rect.width
+            };
+        }
+        
+        function drawInheritance(childId, parentId) {
+            const child = document.getElementById(childId);
+            const parent = document.getElementById(parentId);
+            
+            if (!child || !parent) return;
+            
+            const childPos = getElementPosition(child);
+            const parentPos = getElementPosition(parent);
+            
+            // Create container if it doesn't exist
+            let container = document.getElementById('relationships');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'relationships';
+                container.className = 'relationship-container';
+                document.querySelector('.class-diagram').appendChild(container);
+            }
+            
+            // Calculate line position and length - optimize for shorter lines
+            // For inheritance, connect from top of child to bottom of parent
+            const startX = childPos.centerX;
+            const startY = childPos.top;
+            const endX = parentPos.centerX;
+            const endY = parentPos.bottom;
+            
+            const length = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+            const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+            
+            // Create line
+            const line = document.createElement('div');
+            line.className = 'relationship-line inheritance-line';
+            line.style.width = `${length}px`;
+            line.style.left = `${startX}px`;
+            line.style.top = `${startY}px`;
+            line.style.transform = `rotate(${angle}deg)`;
+            
+            // Create arrow
+            const arrow = document.createElement('div');
+            arrow.className = 'inheritance-arrow';
+            arrow.style.left = `${endX}px`;
+            arrow.style.top = `${endY - 15}px`;
+            arrow.style.transform = `rotate(${angle + 90}deg)`;
+            
+            // Add a label for better visibility
+            const labelElement = document.createElement('div');
+            labelElement.className = 'relationship-label';
+            labelElement.textContent = 'inherits';
+            labelElement.style.left = `${startX + (endX - startX) / 2 - 30}px`;
+            labelElement.style.top = `${startY + (endY - startY) / 2 - 15}px`;
+            
+            container.appendChild(line);
+            container.appendChild(arrow);
+            container.appendChild(labelElement);
+        }
+        
+        function drawAssociation(fromId, toId, fromMultiplicity, toMultiplicity, label) {
+            const from = document.getElementById(fromId);
+            const to = document.getElementById(toId);
+            
+            if (!from || !to) return;
+            
+            const fromPos = getElementPosition(from);
+            const toPos = getElementPosition(to);
+            
+            // Create container if it doesn't exist
+            let container = document.getElementById('relationships');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'relationships';
+                container.className = 'relationship-container';
+                document.querySelector('.class-diagram').appendChild(container);
+            }
+            
+            // Determine the best connection points to minimize line length
+            let startX, startY, endX, endY;
+            
+            // Calculate horizontal and vertical distances
+            const horizontalDist = Math.abs(fromPos.centerX - toPos.centerX);
+            const verticalDist = Math.abs(fromPos.centerY - toPos.centerY);
+            
+            if (horizontalDist > verticalDist) {
+                // Classes are more horizontally separated - connect sides
+                if (fromPos.centerX < toPos.centerX) {
+                    // from is to the left of to
+                    startX = fromPos.right;
+                    startY = fromPos.centerY;
+                    endX = toPos.left;
+                    endY = toPos.centerY;
+                } else {
+                    // from is to the right of to
+                    startX = fromPos.left;
+                    startY = fromPos.centerY;
+                    endX = toPos.right;
+                    endY = toPos.centerY;
+                }
+            } else {
+                // Classes are more vertically separated - connect top/bottom
+                if (fromPos.centerY < toPos.centerY) {
+                    // from is above to
+                    startX = fromPos.centerX;
+                    startY = fromPos.bottom;
+                    endX = toPos.centerX;
+                    endY = toPos.top;
+                } else {
+                    // from is below to
+                    startX = fromPos.centerX;
+                    startY = fromPos.top;
+                    endX = toPos.centerX;
+                    endY = toPos.bottom;
+                }
+            }
+            
+            const length = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+            const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+            
+            // Create line
+            const line = document.createElement('div');
+            line.className = 'relationship-line association-line';
+            line.style.width = `${length}px`;
+            line.style.left = `${startX}px`;
+            line.style.top = `${startY}px`;
+            line.style.transform = `rotate(${angle}deg)`;
+            
+            // Create arrow
+            const arrow = document.createElement('div');
+            arrow.className = 'association-arrow';
+            arrow.style.left = `${endX - 10}px`;
+            arrow.style.top = `${endY}px`;
+            arrow.style.transform = `rotate(${angle + 90}deg)`;
+            
+            // Create label
+            if (label) {
+                const labelElement = document.createElement('div');
+                labelElement.className = 'relationship-label';
+                labelElement.textContent = label;
+                labelElement.style.left = `${startX + (endX - startX) / 2 - 30}px`;
+                labelElement.style.top = `${startY + (endY - startY) / 2 - 15}px`;
+                container.appendChild(labelElement);
+            }
+            
+            // Create multiplicity labels
+            const fromMultiplicityElement = document.createElement('div');
+            fromMultiplicityElement.className = 'multiplicity';
+            fromMultiplicityElement.textContent = fromMultiplicity;
+            fromMultiplicityElement.style.left = `${startX + 5}px`;
+            fromMultiplicityElement.style.top = `${startY - 15}px`;
+            
+            const toMultiplicityElement = document.createElement('div');
+            toMultiplicityElement.className = 'multiplicity';
+            toMultiplicityElement.textContent = toMultiplicity;
+            toMultiplicityElement.style.left = `${endX - 15}px`;
+            toMultiplicityElement.style.top = `${endY - 15}px`;
+            
+            container.appendChild(line);
+            container.appendChild(arrow);
+            container.appendChild(fromMultiplicityElement);
+            container.appendChild(toMultiplicityElement);
+        }
+        
+        function drawAggregation(wholeId, partId, wholeMultiplicity, partMultiplicity, label) {
+            const whole = document.getElementById(wholeId);
+            const part = document.getElementById(partId);
+            
+            if (!whole || !part) return;
+            
+            const wholePos = getElementPosition(whole);
+            const partPos = getElementPosition(part);
+            
+            // Create container if it doesn't exist
+            let container = document.getElementById('relationships');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'relationships';
+                container.className = 'relationship-container';
+                document.querySelector('.class-diagram').appendChild(container);
+            }
+            
+            // Determine the best connection points to minimize line length
+            let startX, startY, endX, endY;
+            
+            // Calculate horizontal and vertical distances
+            const horizontalDist = Math.abs(wholePos.centerX - partPos.centerX);
+            const verticalDist = Math.abs(wholePos.centerY - partPos.centerY);
+            
+            if (horizontalDist > verticalDist) {
+                // Classes are more horizontally separated - connect sides
+                if (wholePos.centerX < partPos.centerX) {
+                    // whole is to the left of part
+                    startX = wholePos.right;
+                    startY = wholePos.centerY;
+                    endX = partPos.left;
+                    endY = partPos.centerY;
+                } else {
+                    // whole is to the right of part
+                    startX = wholePos.left;
+                    startY = wholePos.centerY;
+                    endX = partPos.right;
+                    endY = partPos.centerY;
+                }
+            } else {
+                // Classes are more vertically separated - connect top/bottom
+                if (wholePos.centerY < partPos.centerY) {
+                    // whole is above part
+                    startX = wholePos.centerX;
+                    startY = wholePos.bottom;
+                    endX = partPos.centerX;
+                    endY = partPos.top;
+                } else {
+                    // whole is below part
+                    startX = wholePos.centerX;
+                    startY = wholePos.top;
+                    endX = partPos.centerX;
+                    endY = partPos.bottom;
+                }
+            }
+            
+            const length = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+            const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+            
+            // Create line
+            const line = document.createElement('div');
+            line.className = 'relationship-line aggregation-line';
+            line.style.width = `${length}px`;
+            line.style.left = `${startX}px`;
+            line.style.top = `${startY}px`;
+            line.style.transform = `rotate(${angle}deg)`;
+            
+            // Create diamond
+            const diamond = document.createElement('div');
+            diamond.className = 'aggregation-diamond';
+            diamond.style.left = `${startX - 6}px`;
+            diamond.style.top = `${startY - 6}px`
+            
+            // Create label
+            if (label) {
+                const labelElement = document.createElement('div');
+                labelElement.className = 'relationship-label';
+                labelElement.textContent = label;
+                labelElement.style.left = `${startX + (endX - startX) / 2 - 30}px`;
+                labelElement.style.top = `${startY + (endY - startY) / 2 - 15}px`;
+                container.appendChild(labelElement);
+            }
+            
+            // Create multiplicity labels
+            const wholeMultiplicityElement = document.createElement('div');
+            wholeMultiplicityElement.className = 'multiplicity';
+            wholeMultiplicityElement.textContent = wholeMultiplicity;
+            wholeMultiplicityElement.style.left = `${startX - 15}px`;
+            wholeMultiplicityElement.style.top = `${startY - 15}px`;
+            
+            const partMultiplicityElement = document.createElement('div');
+            partMultiplicityElement.className = 'multiplicity';
+            partMultiplicityElement.textContent = partMultiplicity;
+            partMultiplicityElement.style.left = `${endX + 5}px`;
+            partMultiplicityElement.style.top = `${endY - 15}px`;
+            
+            container.appendChild(line);
+            container.appendChild(diamond);
+            container.appendChild(wholeMultiplicityElement);
+            container.appendChild(partMultiplicityElement);
+        }
+        
+        function drawComposition(wholeId, partId, wholeMultiplicity, partMultiplicity, label) {
+            const whole = document.getElementById(wholeId);
+            const part = document.getElementById(partId);
+            
+            if (!whole || !part) return;
+            
+            const wholePos = getElementPosition(whole);
+            const partPos = getElementPosition(part);
+            
+            // Create container if it doesn't exist
+            let container = document.getElementById('relationships');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'relationships';
+                container.className = 'relationship-container';
+                document.querySelector('.class-diagram').appendChild(container);
+            }
+            
+            // Determine the best connection points to minimize line length
+            let startX, startY, endX, endY;
+            
+            // Calculate horizontal and vertical distances
+            const horizontalDist = Math.abs(wholePos.centerX - partPos.centerX);
+            const verticalDist = Math.abs(wholePos.centerY - partPos.centerY);
+            
+            if (horizontalDist > verticalDist) {
+                // Classes are more horizontally separated - connect sides
+                if (wholePos.centerX < partPos.centerX) {
+                    // whole is to the left of part
+                    startX = wholePos.right;
+                    startY = wholePos.centerY;
+                    endX = partPos.left;
+                    endY = partPos.centerY;
+                } else {
+                    // whole is to the right of part
+                    startX = wholePos.left;
+                    startY = wholePos.centerY;
+                    endX = partPos.right;
+                    endY = partPos.centerY;
+                }
+            } else {
+                // Classes are more vertically separated - connect top/bottom
+                if (wholePos.centerY < partPos.centerY) {
+                    // whole is above part
+                    startX = wholePos.centerX;
+                    startY = wholePos.bottom;
+                    endX = partPos.centerX;
+                    endY = partPos.top;
+                } else {
+                    // whole is below part
+                    startX = wholePos.centerX;
+                    startY = wholePos.top;
+                    endX = partPos.centerX;
+                    endY = partPos.bottom;
+                }
+            }
+            
+            const length = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+            const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+            
+            // Create line
+            const line = document.createElement('div');
+            line.className = 'relationship-line composition-line';
+            line.style.width = `${length}px`;
+            line.style.left = `${startX}px`;
+            line.style.top = `${startY}px`;
+            line.style.transform = `rotate(${angle}deg)`;
+            
+            // Create diamond
+            const diamond = document.createElement('div');
+            diamond.className = 'composition-diamond';
+            diamond.style.left = `${startX - 6}px`;
+            diamond.style.top = `${startY - 6}px`;
+            
+            // Create label
+            if (label) {
+                const labelElement = document.createElement('div');
+                labelElement.className = 'relationship-label';
+                labelElement.textContent = label;
+                labelElement.style.left = `${startX + (endX - startX) / 2 - 30}px`;
+                labelElement.style.top = `${startY + (endY - startY) / 2 - 15}px`;
+                container.appendChild(labelElement);
+            }
+            
+            // Create multiplicity labels
+            const wholeMultiplicityElement = document.createElement('div');
+            wholeMultiplicityElement.className = 'multiplicity';
+            wholeMultiplicityElement.textContent = wholeMultiplicity;
+            wholeMultiplicityElement.style.left = `${startX + 5}px`;
+            wholeMultiplicityElement.style.top = `${startY + 5}px`;
+            
+            const partMultiplicityElement = document.createElement('div');
+            partMultiplicityElement.className = 'multiplicity';
+            partMultiplicityElement.textContent = partMultiplicity;
+            partMultiplicityElement.style.left = `${endX + 5}px`;
+            partMultiplicityElement.style.top = `${endY - 15}px`;
+            
+            container.appendChild(line);
+            container.appendChild(diamond);
+            container.appendChild(wholeMultiplicityElement);
+            container.appendChild(partMultiplicityElement);
+        }
+    </script>
+</body>
+</html>

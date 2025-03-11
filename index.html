@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Case Diagram - Online Ambulance Ordering System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Use Case Diagram: Online Ambulance Ordering System</h1>
+        
+        <div class="diagram">
+            <!-- Left Actors Column -->
+            <div class="actors-column left-actors">
+                <div class="actor" id="patient">
+                    <div class="actor-icon">👤</div>
+                    <div class="actor-name">Patient/User</div>
+                </div>
+                
+                <div class="actor" id="emergency-contact">
+                    <div class="actor-icon">👪</div>
+                    <div class="actor-name">Emergency Contact</div>
+                </div>
+                
+                <div class="actor" id="driver">
+                    <div class="actor-icon">🚑</div>
+                    <div class="actor-name">Ambulance Driver</div>
+                </div>
+            </div>
+            
+            <!-- Use Cases Column -->
+            <div class="use-cases-column">
+                <!-- System Boundary -->
+                <div class="system-boundary">
+                    <div class="system-name">Online Ambulance Ordering System</div>
+                    
+                    <!-- Patient/User Use Cases -->
+                    <div class="use-case-group" id="patient-cases">
+                        <div class="use-case" id="register">Register Account</div>
+                        <div class="use-case" id="login">Login to System</div>
+                        <div class="use-case" id="request">Request Ambulance</div>
+                        <div class="use-case" id="track">Track Ambulance Location</div>
+                        <div class="use-case" id="share-medical">Share Medical Information</div>
+                        <div class="use-case" id="view-eta">View Estimated Arrival Time</div>
+                        <div class="use-case" id="cancel">Cancel Request</div>
+                        <div class="use-case" id="rate">Rate Service</div>
+                        <div class="use-case" id="payment">Make Payment</div>
+                        <div class="use-case" id="history">View History of Requests</div>
+                    </div>
+                    
+                    <!-- Emergency Contact Use Cases -->
+                    <div class="use-case-group" id="emergency-cases">
+                        <div class="use-case" id="request-behalf">Request Ambulance on Behalf</div>
+                        <div class="use-case" id="track-ec">Track Ambulance Location</div>
+                        <div class="use-case" id="notifications">Receive Notifications</div>
+                    </div>
+                    
+                    <!-- Ambulance Driver Use Cases -->
+                    <div class="use-case-group" id="driver-cases">
+                        <div class="use-case" id="driver-login">Login to System</div>
+                        <div class="use-case" id="accept-decline">Accept/Decline Requests</div>
+                        <div class="use-case" id="update-availability">Update Availability Status</div>
+                        <div class="use-case" id="navigate">Navigate to Patient Location</div>
+                        <div class="use-case" id="update-arrival">Update Arrival Status</div>
+                        <div class="use-case" id="complete-trip">Complete Trip</div>
+                    </div>
+                    
+                    <!-- Medical Staff Use Cases -->
+                    <div class="use-case-group" id="medical-cases">
+                        <div class="use-case" id="receive-info">Receive Patient Information</div>
+                        <div class="use-case" id="update-status">Update Patient Status</div>
+                        <div class="use-case" id="prepare">Prepare for Patient Arrival</div>
+                    </div>
+                    
+                    <!-- System Administrator Use Cases -->
+                    <div class="use-case-group" id="admin-cases">
+                        <div class="use-case" id="manage-accounts">Manage User Accounts</div>
+                        <div class="use-case" id="monitor">Monitor System Performance</div>
+                        <div class="use-case" id="reports">Generate Reports</div>
+                        <div class="use-case" id="manage-fleet">Manage Ambulance Fleet</div>
+                        <div class="use-case" id="handle-issues">Handle Disputes/Issues</div>
+                    </div>
+                    
+                    <!-- Relationships container - will be populated by JavaScript -->
+                    <div class="relationships">
+                        <!-- Dynamic relationships will be created here by script.js -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Actors Column -->
+            <div class="actors-column right-actors">
+                <div class="actor" id="medical-staff">
+                    <div class="actor-icon">⚕️</div>
+                    <div class="actor-name">Medical Staff</div>
+                </div>
+                
+                <div class="actor" id="admin">
+                    <div class="actor-icon">🔧</div>
+                    <div class="actor-name">System Administrator</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Legend -->
+        <div class="legend">
+            <h3>Legend</h3>
+            <div class="legend-item">
+                <div class="legend-symbol actor-symbol"></div>
+                <div class="legend-text">Actor</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol use-case-symbol"></div>
+                <div class="legend-text">Use Case</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol association-symbol"></div>
+                <div class="legend-text">Association</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol extends-symbol"></div>
+                <div class="legend-text">«extends» relationship</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol includes-symbol"></div>
+                <div class="legend-text">«includes» relationship</div>
+            </div>
+        </div>
+        
+        <div class="navigation">
+            <a href="index.html">Use Case Diagram</a>
+            <a href="class-diagram.html">Class Diagram</a>
+            <a href="component-diagram.html">Component Diagram</a>
+        </div>
+    </div>
+</body>
+</html>

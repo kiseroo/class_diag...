@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Diagram - Online Ambulance Ordering System</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional styles specific to component diagram */
+        .component-diagram {
+            position: relative;
+            width: 100%;
+            height: 800px;
+            margin: 20px auto;
+            background-color: #fafafa;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .relationships-box {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 2px solid #1890ff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+        }
+        
+        .relationships-title {
+            color: #1890ff;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .relationship-item {
+            margin: 10px 0;
+            padding: 8px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .relationship-item:hover {
+            background-color: #e6f7ff;
+        }
+        
+        .component {
+            position: absolute;
+            width: 200px;
+            height: 100px;
+            background-color: #ffffff;
+            border: 2.5px solid #1890ff;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            z-index: 5;
+        }
+        
+        .component:hover {
+            transform: translateY(-3px);
+            z-index: 10;
+        }
+        
+        .component-icon {
+            font-size: 24px;
+            margin-bottom: 6px;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+        }
+        
+        .component-name {
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 1.4;
+            color: #1890ff;
+            margin-top: 8px;
+        }
+        
+        .connector {
+            position: absolute;
+            height: 2px;
+            background-color: #1890ff;
+            transform-origin: 0 0;
+            z-index: 1;
+            opacity: 0.7;
+        }
+        
+        .connector-arrow {
+            position: absolute;
+            width: 6px; /* Smaller arrow */
+            height: 6px; /* Smaller arrow */
+            border-top: 1px solid #999; /* Thinner border */
+            border-right: 1px solid #999; /* Thinner border */
+            transform: rotate(45deg);
+            right: -3px;
+            top: -3px;
+        }
+        
+        .connector-label {
+            position: absolute;
+            background-color: #ffffff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            z-index: 2;
+            border: 2px solid #1890ff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            color: #1890ff;
+            letter-spacing: 0.5px;
+            transform: translateY(-50%);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        
+        .navigation a {
+            padding: 10px 15px;
+            background-color: #1890ff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .navigation a:hover {
+            background-color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <a href="index.html">Use Case Diagram</a>
+            <a href="class-diagram.html">Class Diagram</a>
+            <a href="component-diagram.html">Component Diagram</a>
+        </div>
+        
+        <h1>Component Diagram: Online Ambulance Ordering System</h1>
+        
+        <div class="component-diagram" id="component-diagram">
+            <!-- Components will be added here by JavaScript -->
+        </div>
+    
+        <div class="relationships-box">
+            <div class="relationships-title">Component Relationships</div>
+            <div id="relationships-list"></div>
+        </div>
+    
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const diagram = document.getElementById('component-diagram');
+                const relationshipsList = document.getElementById('relationships-list');
+                
+                // Define components with positions - improved spacing for better readability
+                const components = [
+                    { id: 'ui', name: 'User Interface Component', icon: '🖥️', x: 400, y: 50 },
+                    { id: 'auth', name: 'Authentication Component', icon: '🔒', x: 400, y: 200 },
+                    { id: 'request', name: 'Request Processing Component', icon: '📋', x: 150, y: 350 },
+                    { id: 'ambulance', name: 'Ambulance Management Component', icon: '🚑', x: 650, y: 350 },
+                    { id: 'notification', name: 'Notification Component', icon: '🔔', x: 650, y: 500 },
+                    { id: 'payment', name: 'Payment Processing Component', icon: '💰', x: 150, y: 500 },
+                    { id: 'medical', name: 'Medical Information Component', icon: '⚕️', x: 150, y: 650 },
+                    { id: 'reporting', name: 'Reporting Component', icon: '📊', x: 400, y: 500 },
+                    { id: 'database', name: 'Database Component', icon: '💾', x: 400, y: 650 }
+                ];
+                
+                // Create components
+                components.forEach(comp => {
+                    const component = document.createElement('div');
+                    component.className = 'component';
+                    component.id = comp.id;
+                    component.style.left = comp.x + 'px';
+                    component.style.top = comp.y + 'px';
+                    component.innerHTML = `
+                        <div class="component-icon">${comp.icon}</div>
+                        <div class="component-name">${comp.name}</div>
+                    `;
+                    diagram.appendChild(component);
+                });
+            
+                // Define relationships between components
+                const relationships = [
+                    { from: 'ui', to: 'auth', label: 'user verification' },
+                    { from: 'auth', to: 'request', label: 'access control' },
+                    { from: 'auth', to: 'ambulance', label: 'access control' },
+                    { from: 'auth', to: 'notification', label: 'access control' },
+                    { from: 'auth', to: 'payment', label: 'access control' },
+                    { from: 'auth', to: 'medical', label: 'access control' },
+                    { from: 'auth', to: 'reporting', label: 'access control' },
+                    { from: 'request', to: 'ambulance', label: 'assign drivers' },
+                    { from: 'ambulance', to: 'notification', label: 'status updates' },
+                    { from: 'payment', to: 'request', label: 'service charges' },
+                    { from: 'medical', to: 'request', label: 'emergency data' },
+                    { from: 'reporting', to: 'request', label: 'data access' },
+                    { from: 'reporting', to: 'ambulance', label: 'data access' },
+                    { from: 'reporting', to: 'payment', label: 'data access' },
+                    { from: 'reporting', to: 'notification', label: 'data access' },
+                    { from: 'reporting', to: 'medical', label: 'data access' },
+                    { from: 'ui', to: 'request', label: 'user requests' },
+                    { from: 'ui', to: 'notification', label: 'display alerts' },
+                    { from: 'request', to: 'database', label: 'data persistence' },
+                    { from: 'ambulance', to: 'database', label: 'data persistence' },
+                    { from: 'notification', to: 'database', label: 'data persistence' }
+                ];
+            
+                // Create connectors and relationship list items
+                relationships.forEach(rel => {
+                    const fromComp = document.getElementById(rel.from);
+                    const toComp = document.getElementById(rel.to);
+                    
+                    // Create connector
+                    const connector = document.createElement('div');
+                    connector.className = 'connector';
+                    
+                    // Calculate connector position and rotation
+                    const fromRect = fromComp.getBoundingClientRect();
+                    const toRect = toComp.getBoundingClientRect();
+                    
+                    const fromX = fromRect.left + fromRect.width / 2;
+                    const fromY = fromRect.top + fromRect.height / 2;
+                    const toX = toRect.left + toRect.width / 2;
+                    const toY = toRect.top + toRect.height / 2;
+                    
+                    const length = Math.sqrt(Math.pow(toX - fromX, 2) + Math.pow(toY - fromY, 2));
+                    const angle = Math.atan2(toY - fromY, toX - fromX) * 180 / Math.PI;
+                    
+                    connector.style.width = length + 'px';
+                    connector.style.left = fromX + 'px';
+                    connector.style.top = fromY + 'px';
+                    connector.style.transform = `rotate(${angle}deg)`;
+                    
+                    // Add arrow to connector
+                    const arrow = document.createElement('div');
+                    arrow.className = 'connector-arrow';
+                    connector.appendChild(arrow);
+                    
+                    diagram.appendChild(connector);
+            
+                    // Add relationship to the list
+                    const relationshipItem = document.createElement('div');
+                    relationshipItem.className = 'relationship-item';
+                    const fromName = components.find(c => c.id === rel.from).name;
+                    const toName = components.find(c => c.id === rel.to).name;
+                    relationshipItem.textContent = `${fromName} --- (${rel.label}) --- ${toName}`;
+                    relationshipsList.appendChild(relationshipItem);
+                });
+            });
+        </script>
+</body>
+</html>
